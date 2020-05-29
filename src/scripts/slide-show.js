@@ -4,8 +4,8 @@ export default class Slide {
     this.config = config.wrapAround;
     this.selectedObj = 0;
     this.images = obj.querySelectorAll(obj.dataset.jsSlideShow);
-    this.images[0].classList.add('slide-show__slide--visible');
-    this.images.forEach((element) => {
+    const dotsWrap = obj.querySelector('[data-js-dots]');
+    this.images.forEach((element, index) => {
       element.addEventListener('click', () => {
         const fullscreenElem = document.fullscreenElement;
 
@@ -15,41 +15,44 @@ export default class Slide {
           element.requestFullscreen();
         }
       });
+
+      const dot = document.createElement('div');
+      dot.classList.add('dot-navigation__dot');
+      dot.setAttribute('data-js-dot', index);
+      dot.addEventListener('click', () => { this.showImage(dot.dataset.jsDot); });
+      dotsWrap.append(dot);
     });
+    this.dots = obj.querySelectorAll('[data-js-dot]');
     obj.querySelector('[data-js-nav-next-slide]').addEventListener('click', () => {
       this.next();
     });
     obj.querySelector('[data-js-nav-previous-slide]').addEventListener('click', () => {
       this.previous();
     });
+    this.showImage(0);
   }
 
   previous() {
     if (!(this.selectedObj - 1 < 0)) {
-      // eslint-disable-next-line no-plusplus
-      this.selectedObj--;
-      this.showImage(this.selectedObj);
+      this.showImage(this.selectedObj - 1);
     } else if (this.config) {
-      this.selectedObj = this.images.length - 1;
-      this.showImage(this.selectedObj);
+      this.showImage(this.images.length - 1);
     }
   }
 
   next() {
     if (this.selectedObj + 1 < this.images.length) {
-      // eslint-disable-next-line no-plusplus
-      this.selectedObj++;
-      this.showImage(this.selectedObj);
+      this.showImage(this.selectedObj + 1);
     } else if (this.config) {
-      this.selectedObj = 0;
-      this.showImage(this.selectedObj);
+      this.showImage(0);
     }
   }
 
-  showImage(index) {
-    this.images.forEach((element) => {
-      element.classList.remove('slide-show__slide--visible');
-    });
-    this.images[index].classList.add('slide-show__slide--visible');
+  showImage(newindex) {
+    this.images[this.selectedObj].classList.remove('slide-show__slide--visible');
+    this.dots[this.selectedObj].classList.remove('dot-navigation__dot--active');
+    this.images[newindex].classList.add('slide-show__slide--visible');
+    this.dots[newindex].classList.add('dot-navigation__dot--active');
+    this.selectedObj = newindex;
   }
 }
