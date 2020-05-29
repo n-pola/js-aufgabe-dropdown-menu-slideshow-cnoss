@@ -470,7 +470,8 @@ img {
     position: absolute;
     top: 0;
     transition: opacity 1s;
-    z-index: 1; }
+    z-index: 1;
+    cursor: pointer; }
   .slide-show__slide:first-child {
     position: relative; }
   .slide-show__slide--visible {

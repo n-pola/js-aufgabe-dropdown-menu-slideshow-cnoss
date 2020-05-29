@@ -2,9 +2,19 @@ export default class Slide {
   constructor(obj) {
     this.obj = obj;
     this.selectedObj = 0;
-    console.log(obj);
     this.images = obj.querySelectorAll(obj.dataset.jsSlideShow);
     this.images[0].classList.add('slide-show__slide--visible');
+    this.images.forEach((element) => {
+      element.addEventListener('click', () => {
+        const fullscreenElem = document.fullscreenElement;
+
+        if (fullscreenElem != null) {
+          document.exitFullscreen();
+        } else {
+          element.requestFullscreen();
+        }
+      });
+    });
     obj.querySelector('[data-js-nav-next-slide]').addEventListener('click', () => {
       this.next();
     });

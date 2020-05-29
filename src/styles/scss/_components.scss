@@ -402,7 +402,8 @@
 		position: absolute;
 		top: 0;
     transition: opacity 1s;
-		z-index: 1;
+    z-index: 1;
+    cursor: pointer;
   }
 
   &__slide:first-child {
