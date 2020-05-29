@@ -1,6 +1,7 @@
 export default class Slide {
-  constructor(obj) {
+  constructor(obj, config) {
     this.obj = obj;
+    this.config = config.wrapAround;
     this.selectedObj = 0;
     this.images = obj.querySelectorAll(obj.dataset.jsSlideShow);
     this.images[0].classList.add('slide-show__slide--visible');
@@ -28,7 +29,7 @@ export default class Slide {
       // eslint-disable-next-line no-plusplus
       this.selectedObj--;
       this.showImage(this.selectedObj);
-    } else {
+    } else if (this.config) {
       this.selectedObj = this.images.length - 1;
       this.showImage(this.selectedObj);
     }
@@ -39,7 +40,7 @@ export default class Slide {
       // eslint-disable-next-line no-plusplus
       this.selectedObj++;
       this.showImage(this.selectedObj);
-    } else {
+    } else if (this.config) {
       this.selectedObj = 0;
       this.showImage(this.selectedObj);
     }

@@ -14,5 +14,6 @@ hamburgerButton.addEventListener('click', toogleMenu);
 const slideShow = document.querySelectorAll('[data-js-slide-show]');
 
 slideShow.forEach((elem) => {
-  new Slide(elem);
+  const config = JSON.parse(elem.dataset.jsSlideShowConfig);
+  new Slide(elem, config);
 });
