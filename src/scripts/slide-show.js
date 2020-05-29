@@ -2,12 +2,13 @@ export default class Slide {
   constructor(obj) {
     this.obj = obj;
     this.selectedObj = 0;
-    this.images = obj.querySelectorAll(obj.dataset.slideShow);
+    console.log(obj);
+    this.images = obj.querySelectorAll(obj.dataset.jsSlideShow);
     this.images[0].classList.add('slide-show__slide--visible');
-    obj.querySelector('[data-nav-next-slide]').addEventListener('click', () => {
+    obj.querySelector('[data-js-nav-next-slide]').addEventListener('click', () => {
       this.next();
     });
-    obj.querySelector('[data-nav-previous-slide]').addEventListener('click', () => {
+    obj.querySelector('[data-js-nav-previous-slide]').addEventListener('click', () => {
       this.previous();
     });
   }
